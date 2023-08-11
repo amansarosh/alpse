@@ -3,33 +3,6 @@ import Link from "next/link";
 export default function About() {
   return (
     <>
-      {/* Header */}
-
-      <header className="bg-slate-200">
-        <nav className="flex p-5 justify-center" aria-label="Global">
-          <div className="flex gap-x-12">
-            <Link
-              href="/search"
-              className="text-sm font-semibold leading-6 text-gray-900"
-            >
-              Start Here
-            </Link>
-            <Link
-              href="/"
-              className="text-xl font-bold leading-6 text-gray-900 overline"
-            >
-              ALPSE
-            </Link>
-            <Link
-              href="/about"
-              className="text-sm font-semibold leading-6 text-gray-900"
-            >
-              About
-            </Link>
-          </div>
-        </nav>
-      </header>
-
       {/* Center Content */}
 
       <section className="pt-80">
