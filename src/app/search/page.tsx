@@ -1,42 +1,49 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { searchFlight } from "../api/searchApi";
+import { useState } from "react";
 
 export default function Search() {
-  const [inputValue, setInputValue] = useState("");
-  const [responseData, setResponseData] = useState("");
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    try {
-      const response = await fetch(
-        `https://airlabs.co/api/v9/schedules?flight_icao=${inputValue}&api_key=${process.env.api_key}`
-      );
-      const data = await response.json();
-      setResponseData(data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-
+  const [data, setData] = useState({});
   return (
     <>
-      <div>
-        <h1>API Input</h1>
-        <form onSubmit={handleSubmit}>
+      {/* Forms and Buttons */}
+
+      <main className="">
+        <h1 className="text-3xl font-bold text-center text-white">Search</h1>
+
+        <form
+          action={(e) => {
+            searchFlight(e).then((res) => {
+              console.log(res);
+              setData(res);
+            });
+          }}
+          className="flex flex-col gap-5 max-w-xl mx-auto p-5"
+        >
           <input
+            name="flight_number"
             type="text"
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            placeholder="Enter data"
+            placeholder="Flight Number (Ex. DAL142; ICAO Format)"
+            className="border border-grey-300 p-2 round-md"
+            required
+            minLength={4}
+            maxLength={6}
           />
-          <button type="submit">Submit</button>
+          <button
+            type="submit"
+            className="border bg-teal-500 text-white p-2 rounded-md"
+          >
+            Search
+          </button>
         </form>
         <div>
-          <h2>API JSON Response:</h2>
-          <pre>{JSON.stringify(responseData, null, 2)}</pre>
+          <h2>API Response:</h2>
+          <p>{data.aircraft_icao}</p>
+          <p>{data.dep_gate}</p>
+          <p>{data.arr_name ? data.arr_name : "No value found"}</p>
         </div>
-      </div>
+      </main>
     </>
   );
 }
