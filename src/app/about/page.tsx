@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Image from "next/image";
 
 export default function About() {
   return (
@@ -19,10 +19,12 @@ export default function About() {
             </p>
           </blockquote>
           <figcaption className="mt-10">
-            <img
-              className="mx-auto h-10 w-10 rounded-full"
+            <Image
+              className="mx-auto rounded-full"
               src="https://avatars.githubusercontent.com/u/55336738?v=4"
               alt="Profile Picture"
+              width={50}
+              height={50}
             />
             <div className="mt-4 flex items-center justify-center space-x-3 text-base">
               <div className="font-semibold text-slate-200">Aman Sarosh</div>
