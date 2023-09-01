@@ -5,18 +5,17 @@ import { useState } from "react";
 
 export default function Search() {
   const [data, setData] = useState({});
+  const [showData, setShowData] = useState(false);
   return (
     <>
-      {/* Forms and Buttons */}
-
-      <main className="">
-        <h1 className="text-3xl font-bold text-center text-white">Search</h1>
-
+      <div className="">
+        {/* Forms and Buttons */}
         <form
           action={(e) => {
             searchFlight(e).then((res) => {
               console.log(res);
               setData(res);
+              setShowData(true);
             });
           }}
           className="flex flex-col gap-5 max-w-xl mx-auto p-5"
@@ -28,22 +27,57 @@ export default function Search() {
             className="border border-grey-300 p-2 round-md"
             required
             minLength={4}
-            maxLength={6}
+            maxLength={7}
           />
           <button
             type="submit"
-            className="border bg-teal-500 text-white p-2 rounded-md"
+            className="border text-slate-200 p-2 rounded-md"
           >
-            Search
+            Get Flight Data
           </button>
         </form>
-        <div>
-          <h2>API Response:</h2>
-          <p>{data.aircraft_icao}</p>
-          <p>{data.dep_gate}</p>
-          <p>{data.arr_name ? data.arr_name : "No value found"}</p>
+
+        {/* Card to show Data */}
+
+        <div className="">
+          <div className="p-10 border-gray-200 rounded-lg shadow-md bg-gray-800">
+            <h5 className="mb-2 text-2xl font-bold text-slate-200">
+              Flight Information for {data.airline_name} {data.flight_number}
+            </h5>
+            {showData ? (
+              <>
+                <div className="">
+                  <p className="text-slate-200">{data?.airline_name}</p>
+                  <p className="text-slate-200">
+                    {data?.status
+                      ? data.status
+                      : "Unable to find flight status"}
+                  </p>
+                  <p className="text-slate-200">
+                    {data?.dep_name
+                      ? data.dep_name
+                      : "Unable to find Departure Airport"}
+                  </p>
+                  <p className="text-slate-200">
+                    {data?.reg_number
+                      ? data.reg_number
+                      : "Unable to find Aircraft Registration"}
+                  </p>
+                  <p className="text-slate-200">
+                    {data?.arr_name
+                      ? data.arr_name
+                      : "Unable to find Arrival Airport"}
+                  </p>
+                </div>
+              </>
+            ) : (
+              <p className="text-slate-200">
+                Search a flight number in the field above to find data about it.
+              </p>
+            )}
+          </div>
         </div>
-      </main>
+      </div>
     </>
   );
 }
