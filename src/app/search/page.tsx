@@ -8,7 +8,7 @@ export default function Search() {
   const [showData, setShowData] = useState(false); // To replace data
 
   // Flight Status Colors
-  function getStatusColor(status) {
+  function getStatusColor(status: string) {
     switch (status.toLowerCase()) {
       case "en-route":
         return "bg-yellow-500"; // Yellow for en route
@@ -94,11 +94,17 @@ export default function Search() {
                     </div>
                   </div>
                 </div>
-                {/* Departure Time */}
-                <div className="mb-4">
-                  <p className="text-slate-200 text-sm">
-                    Scheduled Departure Time (UTC)
-                  </p>
+                {/* Scheduled Departure Time */}
+                <p className="text-slate-200 text-sm">
+                  Scheduled Departure Time (UTC)
+                </p>
+                <div
+                  className={`mb-4 ${
+                    data.dep_actual_utc
+                      ? "line-through decoration-slate-200"
+                      : ""
+                  }`}
+                >
                   <div className="flex items-center space-x-2">
                     <p className="text-slate-200 text-lg font-semibold">
                       {data.dep_time_utc
@@ -107,20 +113,41 @@ export default function Search() {
                     </p>
                   </div>
                 </div>
-                {/* Gate Terminal */}
+
+                {/* Actual Departure Time */}
+                {data.dep_actual_utc !== null && (
+                  <div className="mb-4">
+                    <p className="text-slate-200 text-sm">
+                      Actual Departure Time (UTC)
+                    </p>
+                    <div className="flex items-center space-x-2">
+                      <p className="text-slate-200 text-lg font-semibold">
+                        {data.dep_actual_utc}
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {/* Terminal */}
                 <div className="mb-4">
-                  <p className="text-slate-200 text-sm">Terminal and Gate</p>
+                  <p className="text-slate-200 text-sm">Terminal</p>
                   <div className="flex items-center space-x-2">
                     <p className="text-slate-200 text-lg font-semibold">
                       {data.dep_terminal
                         ? data.dep_terminal
-                        : "Unable to find Departure Terminal"}
+                        : "Unable to find Terminal"}
                     </p>
-                    <div className="bg-blue-500 rounded-md p-1">
-                      <p className="text-slate-200 text-xs">
-                        {data.dep_gate ? data.dep_gate : "Unable to find Gate"}
-                      </p>
-                    </div>
+                  </div>
+                </div>
+                {/* Gate*/}
+                <div className="mb-4">
+                  <p className="text-slate-200 text-sm">Gate</p>
+                  <div className="flex items-center space-x-2">
+                    <p className="text-slate-200 text-lg font-semibold">
+                      {data.dep_gate
+                        ? data.dep_gate
+                        : "Unable to find Departure Gate"}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -134,9 +161,7 @@ export default function Search() {
 
           {/* Arrival Card */}
           <div className="p-10 border-gray-200 rounded-lg shadow-md bg-gray-800">
-            <h5 className="mb-6 text-2xl font-bold text-slate-200 underline">
-              Arrival
-            </h5>
+            <h5 className="mb-6 text-2xl font-bold text-slate-200">Arrival</h5>
             {showData ? (
               <div className="">
                 <div className="mb-4">
@@ -154,12 +179,18 @@ export default function Search() {
                     </div>
                   </div>
                 </div>
-                {/* Arrival Time */}
-                <div className="mb-4">
-                  <p className="text-slate-200 text-sm">
-                    Scheduled Arrival Time (UTC)
-                  </p>
-                  <div className="">
+                {/* Scheduled Arrival Time */}
+                <p className="text-slate-200 text-sm">
+                  Scheduled Arrival Time (UTC)
+                </p>
+                <div
+                  className={`mb-4 ${
+                    data.arr_actual_utc
+                      ? "line-through decoration-slate-200"
+                      : ""
+                  }`}
+                >
+                  <div className="flex items-center space-x-2">
                     <p className="text-slate-200 text-lg font-semibold">
                       {data.arr_time_utc
                         ? data.arr_time_utc
@@ -167,20 +198,54 @@ export default function Search() {
                     </p>
                   </div>
                 </div>
-                {/* Gate Terminal */}
-                <div className="">
-                  <p className="text-slate-200 text-sm">Terminal and Gate</p>
-                  <div className="flex items-center space-x-2">
-                    <p className="text-slate-200 text-lg font-semibold">
-                      {data.arr_terminal
-                        ? data.arr_terminal
-                        : "Unable to find Arrival Terminal"}
+
+                {/* Actual Arrival Time */}
+                {data.arr_actual_utc !== null && (
+                  <div className="mb-4">
+                    <p className="text-slate-200 text-sm">
+                      Actual Arrival Time (UTC)
                     </p>
-                    <div className="bg-blue-500 rounded-md p-1">
-                      <p className="text-slate-200 text-xs">
-                        {data.arr_gate ? data.arr_gate : "Unable to find Gate"}
+                    <div className="flex items-center space-x-2">
+                      <p className="text-slate-200 text-lg font-semibold">
+                        {data.arr_actual_utc}
                       </p>
                     </div>
+                  </div>
+                )}
+                {/* Gate Terminal */}
+                <div className="mb-4">
+                  {/* Terminal */}
+                  <div className="mb-4">
+                    <p className="text-slate-200 text-sm">Terminal</p>
+                    <div className="flex items-center space-x-2">
+                      <p className="text-slate-200 text-lg font-semibold">
+                        {data.dep_terminal
+                          ? data.dep_terminal
+                          : "Unable to find Terminal"}
+                      </p>
+                    </div>
+                  </div>
+                  {/* Gate*/}
+                  <div className="mb-4">
+                    <p className="text-slate-200 text-sm">Gate</p>
+                    <div className="flex items-center space-x-2">
+                      <p className="text-slate-200 text-lg font-semibold">
+                        {data.arr_gate
+                          ? data.arr_gate
+                          : "Unable to find Arrival Gate"}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                {/* Arrival Baggage Claim */}
+                <div className="mb-4">
+                  <p className="text-slate-200 text-sm">Baggage Claim</p>
+                  <div className="flex items-center space-x-2">
+                    <p className="text-slate-200 text-lg font-semibold">
+                      {data.arr_baggage
+                        ? data.arr_baggage
+                        : "Unable to find Baggage Claim"}
+                    </p>
                   </div>
                 </div>
               </div>
