@@ -1,4 +1,6 @@
 "use client";
+// tooltip
+// color for dep and arr time
 
 import { searchFlight } from "../api/searchApi";
 import { useState } from "react";
@@ -16,6 +18,8 @@ export default function Search() {
         return "bg-gray-500"; // Gray for scheduled
       case "landed":
         return "bg-green-500"; // Green for landed
+      case "cancelled":
+        return "bg-red-500"; // Red for cancelled
     }
   }
 
@@ -256,6 +260,36 @@ export default function Search() {
             )}
           </div>
         </div>
+        {/* ATC Routing */}
+        {showData ? (
+          <div className="flex flex-col bg-gray-800 p-5 rounded-lg shadow-md gap-6 mt-5">
+            <div className="flex">
+              <h1 className="text-2xl font-bold text-slate-200">
+                {data.flight_icao} ATC Route
+              </h1>
+            </div>
+
+            {/* Waypoints Card */}
+            <div className="bg-gray-700 p-3 rounded-md shadow-md">
+              <h2 className="text-lg font-semibold text-white mb-3">
+                {data.dep_icao} - {data.arr_icao}
+              </h2>
+              <div className="text-slate-200">
+                <code>
+                  MONTN2 SEA ALPSE YDC ENDBY YZU 5500N/11500W 5900N/11000W
+                  6400N/10000W 6730N/09000W 7000N/08000W 7050N/07000W NADMA
+                  7200N/06000W 7200N/04000W 7000N/03000W 6700N/02000W
+                  6300N/01000W NALAN EVTAR N96 ROKAN M982 TOPPA
+                </code>
+              </div>
+            </div>
+          </div>
+        ) : null}
+
+        {/* test */}
+        <button className="bg-slate-200" onClick={() => {}}>
+          <h1>button</h1>
+        </button>
       </div>
     </>
   );

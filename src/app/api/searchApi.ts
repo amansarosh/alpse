@@ -10,9 +10,7 @@ export async function searchFlight(e: FormData): Promise<Object> {
       cache: "no-cache",
     }
   );
-  const data = await res.json();
-  console.log(data);
-  
-  return data.response;
 
+  const data = await res.json();
+  return data.response;
 }
