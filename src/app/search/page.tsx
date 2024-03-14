@@ -1,6 +1,4 @@
 "use client";
-// tooltip
-// color for dep and arr time
 
 import { searchFlight } from "../api/searchApi";
 import { useState } from "react";
@@ -44,8 +42,7 @@ export default function Search() {
                 placeholder="Flight Number (Ex. DAL142; ICAO Format)"
                 className="w-96 bg-gray-700 text-white border border-gray-600 rounded-l-md px-3 py-2 focus:outline-none"
                 required
-                minLength={4}
-                maxLength={7}
+                pattern="^[A-Za-z]{3}\d{1,4}$" // ICAO Format for Flight Number)
               />
               <button
                 type="submit"
@@ -70,11 +67,8 @@ export default function Search() {
             )}
           </div>
         </div>
-
         {/* Search and FI Display */}
-
         {/* Departure Card */}
-
         <div className="grid grid-cols-2 gap-6 mt-5">
           {/* Departing Information */}
           <div className="p-10 border-gray-200 rounded-lg shadow-md bg-gray-800">
@@ -260,16 +254,18 @@ export default function Search() {
             )}
           </div>
         </div>
-        {/* ATC Routing */}
+
+        {/* Unused Code for ATC Routing - Complications with data source and distribution */}
+
+        {/* ATC Routing
         {showData ? (
           <div className="flex flex-col bg-gray-800 p-5 rounded-lg shadow-md gap-6 mt-5">
             <div className="flex">
               <h1 className="text-2xl font-bold text-slate-200">
                 {data.flight_icao} ATC Route
               </h1>
-            </div>
-
-            {/* Waypoints Card */}
+            </div> */}
+        {/* Waypoints Card
             <div className="bg-gray-700 p-3 rounded-md shadow-md">
               <h2 className="text-lg font-semibold text-white mb-3">
                 {data.dep_icao} - {data.arr_icao}
@@ -284,12 +280,7 @@ export default function Search() {
               </div>
             </div>
           </div>
-        ) : null}
-
-        {/* test */}
-        <button className="bg-slate-200" onClick={() => {}}>
-          <h1>button</h1>
-        </button>
+        ) : null} */}
       </div>
     </>
   );
