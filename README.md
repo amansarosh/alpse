@@ -1,5 +1,5 @@
 ![alpse](/homepage.png)
-![alpse](/flight_search_png)
+![alpse](/flight_search.png)
 
 # alpse: Software designed to provide the most up-to-date information about flights around the world.
 
